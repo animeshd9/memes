@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sigma · Nazar system</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--page:#F4F1EC;--text:#1A1A1A;--muted:#5E5A55;--rule:#DDD6CC;--card:#FFFFFF;--soft:#EDE8E1;
+ --eb:#2038E2;--sky:#007BFF;--or:#FF5A00;--be:#FFE6D0;--ch:#1A1A1A;
+ color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#111;--text:#F4F1EC;--muted:#A39C93;--rule:#2A2A2A;--card:#1A1A1A;--soft:#222;color-scheme:dark}}
+:root[data-theme="dark"]{--page:#111;--text:#F4F1EC;--muted:#A39C93;--rule:#2A2A2A;--card:#1A1A1A;--soft:#222;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--text);font-family:"Plus Jakarta Sans",-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:56px 28px 80px}
+h1{font-size:clamp(40px,6vw,76px);font-weight:800;letter-spacing:-0.05em;line-height:.95;margin:0}
+.lede{max-width:640px;font-size:17px;line-height:1.55;color:var(--muted);margin:18px 0 0}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+nav a{font-size:13px;font-weight:700;color:var(--text);text-decoration:none;border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:8px 14px}
+section{margin-top:84px}
+.sh{margin-bottom:26px}
+.sh b{font-size:13px;color:var(--or);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.sh h2{margin:6px 0 8px;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.035em;line-height:1.05}
+.sh p{margin:0;color:var(--muted);font-size:15.5px;max-width:700px;line-height:1.55}
+h3.sub{font-size:20px;font-weight:800;letter-spacing:-0.02em;margin:40px 0 14px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:26px}
+.grid{display:grid;gap:16px}
+
+/* logo */
+.lg{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+@media (max-width:900px){.lg{grid-template-columns:1fr}}
+.lgHero{background:var(--ch);border-radius:28px;display:flex;align-items:center;justify-content:center;gap:28px;padding:54px 24px;flex-wrap:wrap}
+.lgHero span{font-size:66px;font-weight:800;color:#fff;letter-spacing:-0.05em}
+.anat{padding:22px;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.anat ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13.5px;line-height:1.4;flex:1;min-width:200px}
+.anat li{display:flex;gap:10px;align-items:flex-start}
+.anat i{width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1px solid rgba(0,0,0,.12)}
+.rules{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.rule{padding:18px;display:flex;flex-direction:column;gap:10px}
+.rule .st{height:110px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:12px}
+.rule h4{margin:0;font-size:14.5px;font-weight:800}
+.rule p{margin:0;font-size:13px;line-height:1.45;color:var(--muted)}
+.rule.no h4{color:#D93A1F}
+
+/* states */
+.states{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.state{padding:18px;display:flex;flex-direction:column;gap:12px}
+.state .vs{display:flex;gap:10px}
+.state .v{flex:1;background:var(--ch);border-radius:18px;padding:14px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.state .v small{font-size:11px;font-weight:700;color:rgba(255,255,255,.65)}
+.state h4{margin:0;font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.state h4 em{font-style:normal;font-size:11px;font-weight:700;color:var(--or);background:color-mix(in srgb,var(--or) 14%,transparent);padding:3px 8px;border-radius:999px}
+.state p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.state .when{font-size:12px;font-weight:700;color:var(--text)}
+
+/* micro */
+.micro{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.mi{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.stage{height:190px;background:radial-gradient(120% 90% at 50% 0%,#2a2f5a 0%,#1A1A1A 60%);display:flex;align-items:center;justify-content:center;position:relative}
+.stage .lbl{position:absolute;left:14px;top:12px;font-size:11px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;display:flex;gap:6px;align-items:center}
+.stage .lbl i{width:7px;height:7px;border-radius:50%;background:#FF5A00}
+@media (prefers-reduced-motion:no-preference){.stage .lbl i{animation:rec 1.2s steps(2) infinite}@keyframes rec{50%{opacity:.2}}}
+.mbody{padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px}
+.mbody h4{margin:0;font-size:17px;font-weight:800}
+.mbody p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.fr{background:var(--soft);border-radius:12px;padding:8px 4px 6px;overflow:hidden;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.fr span{font-size:10px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.spec{display:flex;gap:6px;flex-wrap:wrap}
+.spec span{font-size:11px;font-weight:700;border:1px solid var(--rule);border-radius:999px;padding:4px 9px;color:var(--muted)}
+
+/* outside */
+.out{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
+@media (max-width:980px){.out{grid-template-columns:1fr}}
+.phone{width:300px;height:640px;border-radius:50px;padding:6px;background:linear-gradient(145deg,#4a4a4a,#111 40%,#333);box-shadow:0 40px 80px -30px rgba(0,0,0,.45);margin:0 auto}
+.scr{position:relative;height:100%;border-radius:44px;overflow:hidden;color:#fff;display:flex;flex-direction:column}
+.lock{background:linear-gradient(170deg,#007BFF 0%,#2038E2 45%,#1A1A1A 100%)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);height:32px;border-radius:20px;background:#000;z-index:3}
+.lt{text-align:center;margin-top:46px}.lt small{font-size:13px;font-weight:600;opacity:.85}.lt div{font-size:68px;font-weight:700;letter-spacing:-0.04em;line-height:1}
+.la{margin:18px 12px 0;border-radius:24px;background:rgba(10,10,10,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:12px 14px;display:flex;gap:12px;align-items:center}
+.nt{margin:8px 12px 0;border-radius:20px;background:rgba(255,255,255,.88);color:#1A1A1A;padding:10px 12px;display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.35}
+.nt b{font-weight:800}
+.nt .t{margin-left:auto;font-size:10.5px;color:#777;flex-shrink:0}
+.outs{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.oc{padding:18px;display:flex;flex-direction:column;gap:12px}
+.oc .st{border-radius:18px;min-height:170px;display:flex;align-items:center;justify-content:center;padding:14px;position:relative;overflow:hidden}
+.oc h4{margin:0;font-size:15px;font-weight:800}
+.oc p{margin:0;font-size:13px;line-height:1.45;color:var(--muted)}
+
+/* icons */
+.fam{padding:22px;display:flex;flex-direction:column;gap:16px}
+.fam h4{margin:0;font-size:18px;font-weight:800}
+.fam > p{margin:0;font-size:14px;line-height:1.5;color:var(--muted);max-width:760px}
+.icons{display:flex;gap:18px;flex-wrap:wrap}
+.ic{display:flex;flex-direction:column;align-items:center;gap:8px;width:112px;text-align:center}
+.ic .tile{width:92px;height:92px;border-radius:24px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 14px 26px -14px rgba(0,0,0,.5)}
+.ic b{font-size:12.5px;font-weight:800}
+.ic span{font-size:11.5px;color:var(--muted);line-height:1.35}
+.note{margin-top:22px;font-size:14px;line-height:1.55;color:var(--muted);max-width:820px}
+footer{margin-top:72px;border-top:1px solid var(--rule);padding-top:20px;font-size:13.5px;color:var(--muted);line-height:1.6;max-width:820px}
+@media (max-width:420px){.wrap{padding:28px 14px 48px}}
+
+/* animations */
+.spk,.pupil,.iris,.lid,.rip,.ck,.gfill,.burst,.orbit,.whole,.human,.naz,.dot{transform-box:fill-box;transform-origin:center}
+.lid{transform-origin:top}
+@media (prefers-reduced-motion:no-preference){
+.a-wake .lid{animation:wakeL 2.8s cubic-bezier(.3,.7,.2,1) infinite}
+@keyframes wakeL{0%,18%{transform:scaleY(1)}38%,88%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+.a-wake .spk{animation:pop 2.8s infinite}
+@keyframes pop{0%,38%{transform:scale(0)}48%{transform:scale(1.5)}56%,86%{transform:scale(1)}94%,100%{transform:scale(0)}}
+.a-sleep .lid{animation:sleepL 3s ease-in-out infinite}
+@keyframes sleepL{0%,25%{transform:scaleY(0)}55%{transform:scaleY(.62)}62%{transform:scaleY(.5)}80%,92%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+.a-sleep .spk{animation:fadeS 3s infinite}@keyframes fadeS{0%,20%{opacity:1}35%,92%{opacity:0}100%{opacity:1}}
+.a-paid .pupil{animation:pS 3s infinite}@keyframes pS{0%,20%{transform:scale(1)}34%,85%{transform:scale(0)}100%{transform:scale(1)}}
+.a-paid .gfill{animation:gF 3s infinite}@keyframes gF{0%,28%{opacity:0;transform:scale(.4)}40%,85%{opacity:1;transform:scale(1)}100%{opacity:0}}
+.a-paid .ck{stroke-dasharray:22;animation:ckD 3s infinite}@keyframes ckD{0%,38%{stroke-dashoffset:22}55%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:22}}
+.a-paid .burst{animation:bu 3s infinite}@keyframes bu{0%,52%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.15)}80%,100%{opacity:0;transform:scale(1.5)}}
+.a-listen .rip{animation:rip 1.8s ease-out infinite}.a-listen .rip.r2{animation-delay:.6s}.a-listen .rip.r3{animation-delay:1.2s}
+@keyframes rip{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+.a-listen .pupil{animation:lp 1.8s ease-in-out infinite}@keyframes lp{50%{transform:scale(1.18)}}
+.a-speak .pupil{animation:sp 1.4s steps(1) infinite}
+@keyframes sp{0%{transform:scale(1)}14%{transform:scale(1.28)}28%{transform:scale(.92)}42%{transform:scale(1.2)}57%{transform:scale(1.05)}71%{transform:scale(1.32)}85%{transform:scale(.96)}}
+.a-speak .bar{animation:bar 1s ease-in-out infinite;transform-box:fill-box;transform-origin:bottom}.a-speak .bar:nth-child(2){animation-delay:.15s}.a-speak .bar:nth-child(3){animation-delay:.3s}.a-speak .bar:nth-child(4){animation-delay:.45s}
+@keyframes bar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.a-think .orbit{animation:orb 1.6s linear infinite;transform-origin:20px 20px;transform-box:view-box}@keyframes orb{to{transform:rotate(360deg)}}
+.a-think .iris{animation:ti 1.6s ease-in-out infinite}@keyframes ti{0%,100%{transform:translate(-1.5px,0)}50%{transform:translate(1.5px,0)}}
+.a-hold .whole{animation:hw 2.2s ease-in-out infinite}@keyframes hw{0%,100%{transform:scale(1)}50%{transform:scale(.94)}}
+.a-hold .rip{animation:rip 2.2s ease-out infinite}
+.a-hand .naz{animation:hn 4s cubic-bezier(.5,0,.2,1) infinite}@keyframes hn{0%,20%{transform:translateX(0) scale(1)}40%,85%{transform:translateX(-26px) scale(.62)}100%{transform:translateX(0) scale(1)}}
+.a-hand .human{animation:hh 4s cubic-bezier(.5,0,.2,1) infinite}@keyframes hh{0%,25%{transform:translateX(20px) scale(.6);opacity:0}45%,85%{transform:translateX(0) scale(1);opacity:1}100%{transform:translateX(20px) scale(.6);opacity:0}}
+.a-hand .dot{animation:hd 4s infinite}.a-hand .dot.d2{animation-delay:.12s}.a-hand .dot.d3{animation-delay:.24s}@keyframes hd{0%,35%{opacity:0}45%,85%{opacity:1}100%{opacity:0}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>The Nazar system</h1>
+  <p class="lede">Sigma’s logo and assistant are the same object. A protective eye that watches, listens, holds and celebrates, using nothing but its pupil, its sparkle and its rings. No face, no mascot, no costume.</p>
+  <nav aria-label="Sections"><a href="#logo">1 · Logo</a><a href="#states">2 · States</a><a href="#micro">3 · Micro-interactions</a><a href="#outside">4 · Outside the app</a><a href="#icons">5 · Living app icon</a></nav>
+</header>
+
+<section id="logo"><div class="sh"><b>01</b><h2>The logo</h2><p>Four concentric parts and one sparkle. Every state in this system changes one of these parts, so the mark always stays recognisable.</p></div>
+  <div class="lg">
+    <div class="lgHero" id="heroMark"></div>
+    <div class="card anat"><div id="anatMark"></div>
+      <ul>
+        <li><i style="background:#2038E2"></i><span><b>Ring</b> · Electric Blue. The boundary that protects. Tightens when holding.</span></li>
+        <li><i style="background:#fff"></i><span><b>Sclera</b> · white. Gives the eye its calm, open look.</span></li>
+        <li><i style="background:#9DB4F5"></i><span><b>Iris</b> · soft blue. Moves to look, rotates to think.</span></li>
+        <li><i style="background:#0E1440"></i><span><b>Pupil</b> · ink. Does all the expressing: dilates, slides, pulses.</span></li>
+        <li><i style="background:#FFFFFF;box-shadow:inset 0 0 0 2px #0E1440"></i><span><b>Sparkle</b> · the glint of life. Pops on waking, multiplies to celebrate.</span></li>
+      </ul>
+    </div>
+  </div>
+  <h3 class="sub">Usage</h3>
+  <div class="grid rules">
+    <div class="card rule"><div class="st" style="background:#1A1A1A" data-eye='{"s":64}'></div><h4>Charcoal is home</h4><p>The default background for the mark in-app and on the icon.</p></div>
+    <div class="card rule"><div class="st" style="background:#FFE6D0" data-eye='{"s":64}'></div><h4>Beige for calm surfaces</h4><p>Receipts, statements and onboarding.</p></div>
+    <div class="card rule"><div class="st" style="background:#1A1A1A;gap:16px" data-row='[{"s":40},{"s":24},{"s":16}]'></div><h4>Down to 16px</h4><p>Below 24px, drop the sparkle outline so it doesn’t blur.</p></div>
+    <div class="card rule no"><div class="st" style="background:#FF5A00" data-eye='{"s":64}'></div><h4>Never on orange</h4><p>Orange is reserved for actions. The nazar on orange reads as a button.</p></div>
+    <div class="card rule no"><div class="st" style="background:#1A1A1A" data-eye='{"s":64,"ring":"#FF3B30"}'></div><h4>Never turns red</h4><p>Red belongs to the threat. The nazar is always on your side.</p></div>
+  </div>
+</section>
+
+<section id="states"><div class="sh"><b>02</b><h2>States</h2><p>Each state changes one or two parts of the eye. Where I’m confident there’s one pose; where the right answer needs testing, there are two options, A and B, to try in the FGD.</p></div>
+  <div class="grid states" id="stateGrid"></div>
+</section>
+
+<section id="micro"><div class="sh"><b>03</b><h2>Micro-interactions</h2><p>Each one plays live on the stage, with the keyframes laid out underneath like a filmstrip, plus timing, easing and haptics for the build team. Hover or touch the “Moving with you” stage: the nazar follows you.</p></div>
+  <div class="grid micro" id="microGrid"></div>
+</section>
+
+<section id="outside"><div class="sh"><b>04</b><h2>Outside the app</h2><p>The nazar is how people know a message is really from Sigma. It appears in the same pose outside the app as inside, so recognition is instant and impersonation is harder.</p></div>
+  <div class="out">
+    <div class="phone"><div class="scr lock"><div class="island" style="width:90px"></div>
+      <div class="lt"><small>Monday, 1 December</small><div>6:43</div></div>
+      <div class="la"><span data-eye='{"s":40,"st":"hold"}'></span><div style="flex:1"><div style="font-size:13px;font-weight:800">₹49,999 on hold</div><div style="font-size:11.5px;opacity:.7">Sigma is watching this call</div></div><span style="font-size:11px;font-weight:800;color:#30D158">02:14</span></div>
+      <div class="nt"><span data-eye='{"s":30,"st":"side"}'></span><span><b>Sigma</b><br>A payment you didn’t start is waiting. I’ve paused it.</span><span class="t">now</span></div>
+      <div class="nt"><span data-eye='{"s":30,"st":"due","arc":0.75}'></span><span><b>Sigma</b><br>Rent to Mehta ji is due tomorrow. ₹14,500 is ready.</span><span class="t">9:00</span></div>
+      <div class="nt"><span data-eye='{"s":30,"st":"spark"}'></span><span><b>Sigma</b><br>Salary’s in. Want the usual split?</span><span class="t">Fri</span></div>
+    </div></div>
+    <div class="grid outs" id="outGrid"></div>
+  </div>
+</section>
+
+<section id="icons"><div class="sh"><b>05</b><h2>A living app icon</h2><p>Like Zomato and Blinkit for festivals, or Duolingo’s owl reacting to your streak. Four families: by season, by occasion, by what needs your attention, and by level.</p></div>
+  <div class="grid" id="iconFams"></div>
+  <p class="note"><b>Build note:</b> Android can switch icons quietly using activity-alias entries. iOS shows a system alert every time an app changes its icon, so on iPhone the attention and level icons work best as an opt-in “Living icon” setting, with the same states also shown in the home-screen widget, which can update freely.</p>
+</section>
+
+<footer>Sigma, a Gen Z bank venture by HDFC Bank. Concept by team Sus Nazar. All motion respects the system Reduce Motion setting: animations become instant state changes.</footer>
+</div>
+
+<script>
+let uid=0;
+function star(cx,cy,r,fill,stroke){const a=r*0.3;return `<path d="M${cx} ${cy-r}L${cx+a} ${cy-a}L${cx+r} ${cy}L${cx+a} ${cy+a}L${cx} ${cy+r}L${cx-a} ${cy+a}L${cx-r} ${cy}L${cx-a} ${cy-a}Z" fill="${fill}"${stroke?` stroke="${stroke}" stroke-width=".4" stroke-linejoin="round"`:''}/>`}
+function eye(o={}){
+  const s=o.s||64,id='c'+(uid++);
+  const ring=o.ring||'#2038E2',iris=o.iris||'#9DB4F5',pup=o.pup||'#0E1440';
+  const px=o.px||0,py=o.py||0,pr=o.pr??4.5,ir=o.ir??9;
+  let st=o.st||'';
+  let x='';
+  if(o.rip){x+=`<circle class="rip r1" cx="20" cy="20" r="21.5" fill="none" stroke="${o.ripc||'#9DB4F5'}" stroke-width="1.2" opacity=".55"/><circle class="rip r2" cx="20" cy="20" r="21.5" fill="none" stroke="${o.ripc||'#9DB4F5'}" stroke-width="1.2" opacity=".35"/><circle class="rip r3" cx="20" cy="20" r="21.5" fill="none" stroke="${o.ripc||'#9DB4F5'}" stroke-width="1.2" opacity=".2"/>`}
+  if(o.halo)x+=`<circle cx="20" cy="20" r="24" fill="${o.halo}" opacity=".22"/>`;
+  x+=`<g class="whole"><circle cx="20" cy="20" r="20" fill="${ring}"${o.dash?' stroke="#777" stroke-dasharray="2 2"':''}/>`;
+  if(o.arc!=null){const c=2*Math.PI*18;x+=`<circle cx="20" cy="20" r="18" fill="none" stroke="#FF5A00" stroke-width="3.6" stroke-linecap="round" stroke-dasharray="${c*o.arc} ${c}" transform="rotate(-90 20 20)"/>`}
+  if(o.ringStroke)x+=`<circle cx="20" cy="20" r="18.4" fill="none" stroke="${o.ringStroke}" stroke-width="3.2"/>`;
+  x+=`<defs><clipPath id="${id}"><circle cx="20" cy="20" r="14"/></clipPath></defs><g clip-path="url(#${id})"><circle cx="20" cy="20" r="14" fill="${o.sclera||'#FFFFFF'}"/>`;
+  if(o.initials){x+=`<circle cx="20" cy="20" r="12" fill="#FFE6D0"/><text x="20" y="23.6" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="800" fill="#FF5A00">${o.initials}</text>`}
+  else if(o.check){x+=`<circle cx="20" cy="20" r="${ir}" fill="#30D158"/><path d="M15.6 20.2l3 3 5.8-6.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`}
+  else{x+=`<g class="iris" style="transform:translate(${px}px,${py}px)"><circle cx="20" cy="20" r="${ir}" fill="${iris}"/>`;
+    if(o.paid){x+=`<circle class="gfill" cx="20" cy="20" r="${ir}" fill="#30D158" opacity="0"/><circle class="pupil" cx="20" cy="20" r="${pr}" fill="${pup}"/><path class="ck" d="M15.6 20.2l3 3 5.8-6.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`}
+    else{x+=`<circle class="pupil" cx="20" cy="20" r="${pr}" fill="${pup}"/>`}
+    if(o.pause)x+=`<rect x="17.3" y="16.9" width="2" height="6.2" rx="1" fill="#FF5A00"/><rect x="20.7" y="16.9" width="2" height="6.2" rx="1" fill="#FF5A00"/>`;
+    if(o.zz)x+=``;
+    x+=`</g>`;}
+  const lidH=o.lid??0;
+  x+=`<rect class="lid" x="5" y="5" width="30" height="${o.lidAnim?30:30*lidH+0.01}" fill="${ring}"/>`;
+  if(lidH>=0.95)x+=`<path d="M9.5 19q10.5 7 21 0" fill="none" stroke="#9DB4F5" stroke-width="1.8" stroke-linecap="round"/>`;
+  else if(lidH>0.05)x+=`<path d="M6 ${5+30*lidH}h28" stroke="#0E1440" stroke-width="1.4"/>`;
+  x+=`</g>`;
+  if(o.brow)x+=`<path d="M10 ${o.browY||9.2}q10 ${o.browQ||-3.6} 20 ${o.browEnd||1.6}" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round"/>`;
+  const spOn=o.spark!==false&&!o.initials&&!o.check&&lidH<0.3;
+  if(spOn){const sx=20+px+3.4,sy=20+py-7.4;x+=`<g class="orbit"><g class="spk">${star(sx,sy,o.sr||3.4,o.sc||'#FFFFFF',s>=24?'#0E1440':null)}</g></g>`}
+  if(o.burst||o.paid){x+=`<g class="burst"${o.paid?' opacity="0"':''}>${star(34,4,2.6,'#FF5A00')}${star(5,33,2,'#FFE6D0')}${star(37,30,1.6,'#FFFFFF')}${star(6,6,1.4,'#007BFF')}</g>`}
+  x+=`</g>`;
+  if(o.badge)x+=`<circle cx="34.5" cy="6" r="5.5" fill="#FF5A00" stroke="#1A1A1A" stroke-width="1.5"/>`;
+  return `<svg width="${s}" height="${s}" viewBox="-6 -6 52 52" aria-hidden="true" class="${o.cls||''}" style="overflow:visible">${x}</svg>`;
+}
+const P={here:{},side:{px:4,py:-.5,brow:true},hold:{pr:6.6,pause:true,ripc:'#FF5A00'},spark:{sr:4.2,burst:true},due:{arc:.75,px:3,py:-3}};
+function preset(o){return Object.assign({},P[o.st]||{},o)}
+document.querySelectorAll('[data-eye]').forEach(el=>{el.innerHTML=eye(preset(JSON.parse(el.dataset.eye)))});
+document.querySelectorAll('[data-row]').forEach(el=>{el.innerHTML=JSON.parse(el.dataset.row).map(o=>eye(Object.assign(o,o.s<24?{spark:true}:{}))).join('')});
+document.getElementById('heroMark').innerHTML=eye({s:140})+'<span>sigma</span>';
+document.getElementById('anatMark').innerHTML=eye({s:132});
+
+// STATES
+const states=[
+ ['Here','Calm, centred, sparkle on.','Greeting, idle, home screen.',[{o:{}}],false],
+ ['Listening','The pupil opens slightly and soft rings ripple outward, like sound reaching it.','You’re speaking or typing to Sigma.',[{o:{pr:5.4,rip:true}}],false],
+ ['Thinking','The sparkle orbits the pupil while the iris drifts. Never a spinner.','Sigma is checking a payee, reading a statement.',[{o:{px:-1.5}}],false],
+ ['Speaking','The pupil pulses with each phrase, like a voice meter.','Sigma is replying, by voice or in chat.',[{o:{pr:5.8}}],false],
+ ['Side-eye','Something’s unusual. It looks at the thing that’s off.','A payment is unusual for you, but not yet blocked.',[{l:'A · Glance',o:{px:4,py:-.5,brow:true}},{l:'B · Squint',o:{px:2.5,lid:.42,closedLine:false}}],true],
+ ['Holding','It has stopped a payment and is keeping it safe.','A payment is paused during a call or a risk check.',[{l:'A · Pause pupil',o:{pr:6.6,pause:true}},{l:'B · Orange ring',o:{ringStroke:'#FF5A00',pr:6}}],true],
+ ['Safe','The threat is gone and your money stayed.','After a decline, a blocked scam, a recovered payment.',[{l:'A · Sparkle burst',o:{sr:4.2,burst:true}},{l:'B · Green ring',o:{ringStroke:'#30D158',sr:4.2}}],true],
+ ['Paid','The payment landed where it should.','A successful payment or transfer.',[{o:{check:true,ir:9}}],false],
+ ['Handing over','Sigma brings in a named person. The AI never pretends to be human.','Escalation to an RM, or a case owner.',[{l:'A · Side by side',o:{},pair:true},{l:'B · Iris becomes person',o:{initials:'AN'}}],true],
+ ['Heads-up','Something you should know about soon. Not a threat.','A bill due in 3 days, low balance before rent.',[{l:'A · Progress arc',o:{arc:.75,px:3,py:-3}},{l:'B · Badge glance',o:{px:3.4,py:-3.4,badge:true}}],true],
+ ['Resting','Eyes closed. Sigma isn’t watching anything right now.','Logged out, app locked, privacy mode on.',[{o:{lid:1}}],false],
+ ['Offline','Faded, dashed ring. Honest about not being able to protect you right now.','No network, or a service outage.',[{o:{ring:'#3a3a3a',iris:'#5a5a5a',pup:'#222',sclera:'#8a8a8a',spark:false,dash:true}}],false],
+];
+document.getElementById('stateGrid').innerHTML=states.map(([n,d,w,vs,ab])=>`<div class="card state"><div class="vs">${vs.map(v=>`<div class="v">${v.pair?`<svg width="92" height="64" viewBox="0 0 92 64" aria-hidden="true">${eye({s:40}).replace('<svg ','<svg x="6" y="12" ')}<circle cx="60" cy="32" r="19" fill="#FFE6D0" stroke="#2038E2" stroke-width="3"/><text x="60" y="37" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="14" font-weight="800" fill="#FF5A00">AN</text></svg>`:eye(Object.assign({s:vs.length>1?74:88},v.o))}${v.l?`<small>${v.l}</small>`:''}</div>`).join('')}</div><h4>${n}${ab?'<em>Test A vs B</em>':''}</h4><p>${d}</p><span class="when">When: <span style="font-weight:500;color:var(--muted)">${w}</span></span></div>`).join('');
+
+// MICRO
+const micro=[
+ {n:'Activated',cls:'a-wake',d:'The eye opens from top to bottom, then the sparkle pops as if catching light. Used when you open the app or say “Hey Sigma.”',live:{lidAnim:true},fr:[['0ms',{lid:1}],['180ms',{lid:.55}],['320ms',{lid:0,spark:false}],['420ms',{sr:4.4}]],spec:['420ms','ease-out','Haptic: soft tap on pop']},
+ {n:'Deactivated',cls:'a-sleep',d:'The sparkle fades first, then the lid lowers with one small settle, like a slow blink into rest. Used on lock or log out.',live:{lidAnim:true},fr:[['0ms',{}],['120ms',{spark:false}],['300ms',{lid:.6}],['520ms',{lid:1}]],spec:['520ms','ease-in-out','No haptic']},
+ {n:'Moving with you',cls:'a-follow',d:'The pupil tracks your finger or scroll, so it feels present without getting in the way. Try it on the stage.',live:{},fr:[['left',{px:-3.6}],['up',{py:-3.6}],['right',{px:3.6}],['down',{py:3.6}]],spec:['Follows within 3.5px','spring 220/22','No haptic']},
+ {n:'Payment completed',cls:'a-paid',d:'The pupil shrinks to nothing, the iris fills green, a check draws itself, and four sparkles burst out.',live:{paid:true},fr:[['0ms',{}],['200ms',{pr:1.5}],['380ms',{check:true}],['560ms',{check:true,burst:true}]],spec:['600ms','ease-out-back','Haptic: success double tap']},
+ {n:'Listening to you',cls:'a-listen',d:'Rings ripple outward at the pace of your voice, and the pupil opens a little. It shows Sigma is taking in every word before it acts.',live:{rip:true,pr:5.2},fr:[['quiet',{pr:4.8}],['word',{pr:5.6,rip:true}],['pause',{pr:5}],['word',{pr:5.8,rip:true}]],spec:['Synced to mic level','ease-out','No haptic']},
+ {n:'Speaking to you',cls:'a-speak',d:'The pupil pulses in phrases, never lip-sync. A small voice meter sits beside it in chat.',live:{},bars:true,fr:[['phrase',{pr:5.8}],['beat',{pr:4.3}],['phrase',{pr:6}],['end',{}]],spec:['Synced to TTS phrases','steps','No haptic']},
+ {n:'Thinking',cls:'a-think',d:'The sparkle orbits the pupil while the iris drifts gently. Shown while Sigma checks a payee or reads your data.',live:{},fr:[['0°',{}],['90°',{px:1.5}],['180°',{px:-1}],['270°',{px:-1.5}]],spec:['1.6s loop','linear orbit','No haptic']},
+ {n:'Holding',cls:'a-hold',d:'The eye tightens and breathes slowly, with orange rings pulsing out. Calm, firm, unmissable.',live:{pr:6.6,pause:true,rip:true,ripc:'#FF5A00'},fr:[['0ms',{}],['150ms',{pr:6.6}],['300ms',{pr:6.6,pause:true}],['loop',{pr:6.6,pause:true,rip:true,ripc:'#FF5A00'}]],spec:['2.2s breathe','ease-in-out','Haptic: firm double pulse']},
+ {n:'AI to human handover',cls:'a-hand',d:'The nazar shrinks and steps aside, three dots connect, and the person arrives with their real initials or photo. You always know who you’re talking to.',hand:true,fr:[['0ms',{}],['300ms',{s:40}],['500ms',{handF:1}],['800ms',{handF:2}]],spec:['800ms','ease-in-out','Haptic: light tap on arrival']},
+];
+function handSvg(w,h,stage){return `<svg width="${w}" height="${h}" viewBox="0 0 140 80" aria-hidden="true"><g class="naz">${eye({s:64}).replace('<svg ','<svg x="38" y="8" ')}</g><g><circle class="dot d1" cx="66" cy="40" r="2" fill="#FFE6D0" opacity="${stage===2?1:0}"/><circle class="dot d2" cx="73" cy="40" r="2" fill="#FFE6D0" opacity="${stage===2?1:0}"/><circle class="dot d3" cx="80" cy="40" r="2" fill="#FFE6D0" opacity="${stage===2?1:0}"/></g><g class="human" ${stage===0?'opacity="0"':''}><circle cx="106" cy="40" r="22" fill="#FFE6D0" stroke="#2038E2" stroke-width="3.5"/><text x="106" y="46" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="16" font-weight="800" fill="#FF5A00">AN</text></g></svg>`}
+document.getElementById('microGrid').innerHTML=micro.map((m,i)=>{
+ let live;
+ if(m.hand)live=handSvg(200,114,0);
+ else live=eye(Object.assign({s:118,cls:m.cls},m.live));
+ if(m.bars)live=`<div style="display:flex;align-items:center;gap:16px">${live}<svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true" class="a-speak"><g>${[0,1,2,3].map(k=>`<rect class="bar" x="${4+k*9}" y="6" width="5" height="28" rx="2.5" fill="#2038E2"/>`).join('')}</g></svg></div>`;
+ const frames=m.fr.map(([t,o])=>{let svg;if(m.hand){svg=o.handF===1?handSvg(56,32,1).replace('class="naz"','class="naz" transform="translate(-14 8) scale(.8)"'):o.handF===2?handSvg(56,32,2).replace('class="naz"','class="naz" transform="translate(-20 16) scale(.6)"'):handSvg(56,32,0)}else svg=eye(Object.assign({s:44},o));return `<div class="fr">${svg}<span>${t}</span></div>`}).join('');
+ return `<div class="card mi"><div class="stage ${m.cls==='a-hand'?m.cls:''}" ${m.cls==='a-follow'?'id="follow"':''}><span class="lbl"><i></i>Live</span>${live}</div><div class="mbody"><h4>${m.n}</h4><p>${m.d}</p><div class="strip">${frames}</div><div class="spec">${m.spec.map(s=>`<span>${s}</span>`).join('')}</div></div></div>`}).join('');
+// follow interaction
+(function(){const st=document.getElementById('follow');if(!st)return;const iris=st.querySelector('.iris'),spk=st.querySelector('.orbit');let tx=0,ty=0,cx=0,cy=0,active=false,t0=performance.now();
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ st.addEventListener('pointermove',e=>{const r=st.getBoundingClientRect();const dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);const d=Math.hypot(dx,dy)||1;const m=Math.min(3.6,d/14);tx=dx/d*m;ty=dy/d*m;active=true});
+ st.addEventListener('pointerleave',()=>{active=false});
+ function f(now){if(!active&&!reduce){const k=(now-t0)/1000;tx=Math.cos(k*1.1)*3;ty=Math.sin(k*1.7)*1.6}cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;iris.style.transform=`translate(${cx}px,${cy}px)`;spk.style.transform=`translate(${cx}px,${cy}px)`;requestAnimationFrame(f)}requestAnimationFrame(f)})();
+
+// OUTSIDE
+const outs=[
+ ['Dynamic Island','Holding pose during a call, so protection is visible even when the app is closed.',`<div style="height:44px;border-radius:24px;background:#000;display:flex;align-items:center;gap:10px;padding:0 14px 0 8px;color:#fff;font-size:12.5px;font-weight:800">${eye(preset({s:32,st:'hold'}))}₹49,999 on hold<span style="color:#30D158;margin-left:6px">02:14</span></div>`,'#0c0c0c'],
+ ['Home-screen widget','Your safety streak and the next thing due, at a glance. Updates freely, unlike the icon.',`<div style="width:160px;height:160px;border-radius:30px;background:#1A1A1A;padding:14px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;box-shadow:0 14px 30px -14px rgba(0,0,0,.6)">${eye({s:40})}<div><div style="font-size:24px;font-weight:800;letter-spacing:-0.03em">42 days</div><div style="font-size:11px;opacity:.7">scam-free streak</div></div><div style="font-size:11px;font-weight:700;color:#FF5A00">Rent due in 3 days</div></div>`,'linear-gradient(160deg,#007BFF,#2038E2)'],
+ ['In-app pop-up','A bottom sheet before a risky first payment. The nazar side-eyes, the copy stays short.',`<div style="width:220px;border-radius:24px;background:#1A1A1A;color:#fff;padding:16px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center">${eye(preset({s:52,st:'side'}))}<div style="font-size:14px;font-weight:800">First time paying Deepak?</div><div style="font-size:11.5px;opacity:.7">Check the name on UPI before you send.</div><div style="width:100%;border-radius:999px;background:#FF5A00;color:#1A1A1A;font-weight:800;font-size:12px;padding:9px">Check name</div></div>`,'#2a2a2a'],
+ ['Toast','Quiet confirmation with undo. The nazar winks into its paid pose and fades.',`<div style="border-radius:999px;background:#fff;color:#1A1A1A;padding:6px 14px 6px 6px;display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;box-shadow:0 10px 26px -10px rgba(0,0,0,.5)">${eye({s:30,check:true})}<span style="white-space:nowrap">Sent ₹613</span><span style="white-space:nowrap;color:#2038E2;font-weight:800">Undo · 8s</span></div>`,'#1A1A1A'],
+ ['Share card','After a blocked scam, a story-sized card to warn friends. It carries the safe pose and no personal details.',`<div style="width:130px;height:210px;border-radius:18px;background:linear-gradient(180deg,#007BFF,#2038E2 55%,#1A1A1A);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#fff;text-align:center;padding:12px">${eye(preset({s:64,st:'spark'}))}<div style="font-size:14px;font-weight:800;line-height:1.1">I just dodged a scam call</div><div style="font-size:9.5px;opacity:.75">Sigma held it. Never share an OTP.</div></div>`,'#FFE6D0'],
+ ['Watch','Holding pose on the wrist with one firm haptic, so you can decline without finding your phone.',`<div style="width:120px;height:146px;border-radius:34px;background:#000;border:5px solid #333;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff">${eye(preset({s:50,st:'hold'}))}<div style="font-size:11px;font-weight:800">₹49,999 held</div><div style="border-radius:999px;background:#FF5A00;color:#1A1A1A;font-size:10px;font-weight:800;padding:5px 12px">Decline</div></div>`,'#2a2a2a'],
+];
+document.getElementById('outGrid').innerHTML=outs.map(([n,d,inner,bg])=>`<div class="card oc"><div class="st" style="background:${bg}">${inner}</div><h4>${n}</h4><p>${d}</p></div>`).join('');
+
+// ICONS
+function tile(bg,inner,extra=''){return `<div class="tile" style="background:${bg}">${extra}${inner}</div>`}
+const fams=[
+ {n:'By season',d:'Swapped for a few days around each festival, like Zomato and Blinkit do. The nazar stays untouched; only the world around it changes.',items:[
+  ['Diwali','Warm glow, extra sparkles in gold and orange',tile('radial-gradient(circle at 50% 45%,#7a2a00,#1A1A1A 70%)',eye({s:62,burst:true,sr:4,sc:'#FFE6D0'}))],
+  ['Holi','Colour powder bursting from behind the ring',tile('#1A1A1A',eye({s:58}),`<svg width="92" height="92" style="position:absolute;inset:0" aria-hidden="true"><circle cx="20" cy="22" r="16" fill="#FF5A00" opacity=".85"/><circle cx="74" cy="20" r="14" fill="#007BFF" opacity=".85"/><circle cx="70" cy="74" r="16" fill="#FFE6D0" opacity=".8"/><circle cx="18" cy="72" r="12" fill="#2038E2" opacity=".9"/></svg>`)],
+  ['Monsoon','Rain falls, and the sparkle becomes a droplet',tile('linear-gradient(180deg,#007BFF,#1A1A1A)',eye({s:60,sc:'#9DB4F5'}),`<svg width="92" height="92" style="position:absolute;inset:0" aria-hidden="true" stroke="#9DB4F5" stroke-width="2" stroke-linecap="round" opacity=".7"><path d="M14 8l-4 10M30 4l-4 10M66 6l-4 10M82 14l-4 10M10 60l-4 10M84 64l-4 10"/></svg>`)],
+  ['Sankranti','A small kite catches the wind beside the eye',tile('#FFE6D0',eye({s:56}),`<svg width="92" height="92" style="position:absolute;inset:0" aria-hidden="true"><path d="M70 6l12 12-12 12-12-12z" fill="#FF5A00"/><path d="M70 30q-4 10 2 18t-2 20" fill="none" stroke="#1A1A1A" stroke-width="1.4"/></svg>`)]]},
+ {n:'By occasion',d:'Personal moments, shown only to the person they belong to.',items:[
+  ['Salary day','Sparkle doubles for 24 hours',tile('#1A1A1A',eye({s:62,sr:4.6,burst:true}))],
+  ['Birthday','Confetti in the palette, nazar unchanged',tile('#2038E2',eye({s:58}),`<svg width="92" height="92" style="position:absolute;inset:0" aria-hidden="true"><rect x="10" y="12" width="6" height="10" rx="2" fill="#FF5A00" transform="rotate(-20 13 17)"/><rect x="76" y="14" width="6" height="10" rx="2" fill="#FFE6D0" transform="rotate(25 79 19)"/><rect x="14" y="70" width="6" height="10" rx="2" fill="#FFE6D0" transform="rotate(30 17 75)"/><rect x="72" y="70" width="6" height="10" rx="2" fill="#FF5A00" transform="rotate(-25 75 75)"/></svg>`)],
+  ['Sigma Wrapped','Year-end recap week, on the Crossroads gradient',tile('linear-gradient(135deg,#007BFF,#FFE6D0 35%,#FF5A00 60%,#2038E2 85%,#1A1A1A)',eye({s:58}))]]},
+ {n:'By what needs you',d:'Like Duolingo’s owl reacting to a missed lesson, but never guilt. The nazar simply looks at what needs attention.',items:[
+  ['Bill due soon','Orange arc fills as the date gets closer',tile('#1A1A1A',eye({s:62,arc:.75,px:3,py:-3}))],
+  ['Overdue','Side-eye toward an orange badge. Cheeky, not shaming',tile('#1A1A1A',eye({s:62,px:3.4,py:-3.4,brow:true,badge:true}))],
+  ['Scam blocked','Safe pose for 48 hours after a save',tile('#1A1A1A',eye({s:62,check:true}))],
+  ['Goal reached','Savings goal hit: the ring turns beige-gold',tile('#1A1A1A',eye({s:62,ringStroke:'#FFE6D0',sr:4.2,burst:true}))]]},
+ {n:'By level',d:'Your scam-free streak, shown as sparkles earned. Status you can show off, built from good habits.',items:[
+  ['1 month','One sparkle',tile('#1A1A1A',eye({s:60}))],
+  ['3 months','Two sparkles',tile('#1A1A1A',eye({s:60}),`<svg width="92" height="92" style="position:absolute;inset:0" aria-hidden="true">${star(74,18,5,'#FFE6D0')}</svg>`)],
+  ['6 months','Three sparkles and a beige halo',tile('#1A1A1A',eye({s:60,halo:'#FFE6D0'}),`<svg width="92" height="92" style="position:absolute;inset:0" aria-hidden="true">${star(74,18,5,'#FFE6D0')}${star(18,74,4,'#FF5A00')}</svg>`)],
+  ['1 year','Full Crossroads halo, the rarest icon',tile('#1A1A1A',`<div style="width:78px;height:78px;border-radius:50%;background:conic-gradient(#007BFF,#FFE6D0,#FF5A00,#2038E2,#007BFF);display:flex;align-items:center;justify-content:center">${eye({s:64})}</div>`)]]},
+];
+document.getElementById('iconFams').innerHTML=fams.map(f=>`<div class="card fam"><h4>${f.n}</h4><p>${f.d}</p><div class="icons">${f.items.map(([n,d,t])=>`<div class="ic">${t}<b>${n}</b><span>${d}</span></div>`).join('')}</div></div>`).join('');
+</script>
+</body>
+</html>
